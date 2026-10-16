@@ -453,6 +453,7 @@ main { padding: 24px 0; }
 [data-pgroup="local-1"]      { --pgroup-color: var(--color-pgroup1) }    /* 諸派1 */
 [data-pgroup="local-2"]        { --pgroup-color: var(--color-pgroup2) }    /* 諸派2 */
 [data-pgroup="local-3"]        { --pgroup-color: var(--color-pgroup3) }    /* 諸派3 */
+[data-pgroup="local-4"]        { --pgroup-color: var(--color-pgroup4) }    /* 諸派4 */
 [data-pgroup="independent"] { --pgroup-color: var(--color-independent) }
 [data-pgroup="vacant"]      { --pgroup-color: var(--color-vacant) }
 /* ---- 日程の種別:色と段(レーン)の番号 ---- */
