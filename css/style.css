@@ -933,12 +933,11 @@ main { padding: 24px 0; }
 .parliament__list li[data-hover]:not([data-selected]) .parliament__btn {
   background-color: color-mix(in srgb, var(--pgroup-color) 9%, var(--color-bg));
 }
-@media (hover: hover) {
-  .schedule__filter-btn:hover:not([aria-pressed="true"]),
-  .schedule__filter-btn:focus-visible:not([aria-pressed="true"]) {
-    background-color: color-mix(in srgb, var(--kind-color) 9%, var(--color-bg));
-  }
+.schedule__filter-btn:hover:not([aria-pressed="true"]),
+.schedule__filter-btn:focus-visible:not([aria-pressed="true"]) {
+  background-color: color-mix(in srgb, var(--kind-color) 9%, var(--color-bg));
 }
+
 .schedule__bar[data-hover] {
   background-color: color-mix(in srgb, var(--kind-color) 18%, var(--color-bg));
 }
