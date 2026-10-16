@@ -1,0 +1,1017 @@
+/* ============================================================
+   Kochi.Watch スタイルシート
+   目次:1.リセット → 2.変数 → 3.全体 → 4.共通
+        → 5.ヘッダー → 6.ナビ → 7.メイン → 8.フッター
+        → 9.フォーカスと動き → 10.スマホ対応
+   ============================================================ */
+
+/* ============================================================
+   1. リセット(ブラウザの初期スタイルを消す)
+   ============================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a { color: inherit; }
+
+/* ============================================================
+   2. 変数(色の値はここだけ変えれば全体に反映される)
+   ============================================================ */
+:root {
+  --palette-1: #006B47;
+  --palette-2: rgb(31,95, 168);
+  --palette-3: rgb(150, 50, 120);
+  --palette-4: rgb(184, 92, 0);
+  --palette-5: rgb(0, 180, 216);
+  --palette-6: rgb(255, 214, 10);
+  --palette-7: rgb(200, 182, 249);
+
+  --color-bland: var(--palette-1);
+  --color-kind-regular: var(--palette-1);
+  --color-kind-extra: var(--palette-2);
+
+  --color-link-anchor: var(--palette-3);
+  --color-link-external: var(--palette-2);
+  --color-link-internal: var(--palette-1);
+
+  --color-text: #222;
+  --color-text-muted: #5F6B76;
+  --color-bg: #fff;
+  --color-bg-glass: rgba(255, 255, 255, 0.80);
+  --color-bg-hover: rgba(216, 242, 85, 1);
+  --line-border: rgb(178, 178, 178);
+  --line-border-glass: rgba(0, 0, 0, 0.30);
+  --nav-inset: 20px;
+
+  --color-ldp:    rgb(210, 35, 25);   /* 自由民主党 */
+  --color-ishin:  rgb(225, 154, 0);   /* 日本維新の会 */
+  --color-dpp:    rgb(0, 16, 165);    /* 国民民主党 */
+  --color-komei:  rgb(235, 97, 190);  /* 公明党 */
+  --color-craj:   rgb(85, 130, 255);  /* 中道改革連合 */
+  --color-cdp:    rgb(35, 145, 255);  /* 立憲民主党 */
+  --color-sansei: rgb(235, 100, 10);  /* 参政党 */
+  --color-mirai:  rgb(170, 135, 40);  /* チームみらい */
+  --color-jcp:    rgb(110, 65, 225);  /* 日本共産党 */
+  --color-inochi: rgb(240, 160, 167); /* いのちの党 */
+  --color-sdp:    rgb(5, 85, 90);     /* 社会民主党 */
+  --color-cpj:    rgb(150, 150, 240); /* 日本保守党 */
+  --color-independent: rgb(120, 120, 120);  /* 無所属 */
+  --color-vacant:      rgb(190, 190, 190);  /* 空席 */
+  --color-pgroup1:     rgb(50, 150, 40);    /* 地方用1 */
+  --color-pgroup2:     rgb(155, 60, 105);   /* 地方用2 */
+  --color-pgroup3:     rgb(0, 150, 165);    /* 地方用3 */
+  --color-pgroup4:     rgb(140, 85, 45);    /* 地方用4 */
+
+  --tap-size: max(44px, 2.75rem);
+  --border-w: max(3px, 0.1875rem);
+  --radius-s: 0.5rem;
+  --radius-pill: 10rem;
+}
+
+/* ============================================================
+   3. 全体
+   ============================================================ */
+body {
+  font-family: sans-serif;
+  font-size: 1rem;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  line-height: 1.8;
+}
+html {
+  scrollbar-gutter: stable;        /* メニューを開くと背景のスクロールが止まり、スクロールバーが消えて画面が横にずれるのを防ぐ */
+  scroll-behavior: smooth;
+}
+
+/* ============================================================
+   4. 共通
+   ============================================================ */
+/* ---- 4-1. container(幅の制限と中央寄せ) ---- */
+/* 本文・フッターの幅は横幅が960pxか90%のうち大きい方になる。
+  ヘッダーだけ別にしたいので、5-3の .site-header__bar で max-width を上書きする */
+.container {
+  max-width: max(960px, 90dvw);
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* ---- 4-2. content-section(本文の区切り=太い横線) ---- */
+.content-section {
+  border-top: var(--border-w) solid var(--color-text);
+  padding: max(16px, 1rem) 0 max(48px, 3rem);
+}
+
+/* ---- 4-3. リンクの下線ポリシー ---- */
+/* ヘッダーとナビの中は下線なし、本文・フッターは下線あり */
+.site-header__glass a,
+.site-nav a { text-decoration: none; }
+main a,
+.site-footer a {
+  color: currentColor;
+  text-decoration: underline;
+  text-underline-offset: max(3px, 0.1875rem);
+}
+main a[target="_blank"]:not(.quick-link)::after,
+.site-footer a::after {
+  content: "↗" / "";
+}
+main a:hover,
+main a:focus-visible {
+  text-decoration-thickness: 2px;
+}
+
+/* ---- 4-3b. visually-hidden(画面には出さず、読み上げだけに使う) ---- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---- 4-4. text-note(補足の小さな文字) ---- */
+.text-note {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+/* ============================================================
+   5. ヘッダー(外側の箱から順に)
+   ============================================================ */
+/* ---- 5-1. site-header(スクロールしても残す器) ---- */
+.site-header {
+  position: sticky;
+  top: min(0.5rem, 2.5dvw);
+  max-width: max(calc(100% - 1rem), 95dvw);
+  margin: 0 auto;
+  z-index: 100;
+}
+
+/* ---- 5-2. site-header__glass(すりガラスの帯) ---- */
+.site-header__glass {
+  background-color: var(--color-bg-glass);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: var(--color-text);
+  border: max(1.5px, 0.09375rem) solid var(--line-border-glass);
+  border-radius: var(--radius-pill);
+}
+
+/* ---- 5-3. site-header__bar(ロゴ+ハンバーガーの横並び) ---- */
+/* ヘッダーの幅 */
+.site-header__bar {
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: max(60px, 3.75rem);
+}
+
+/* ---- 5-4. site-header__logo ---- */
+.site-header__logo a {
+  font-size: 1.75rem;
+  font-weight: 900;
+  transition: color 0.25s ease;
+}
+.site-header__logo a:hover,
+.site-header__logo a:focus-visible {
+  color: var(--color-bland);
+  text-decoration: underline;
+}
+/* ---- 5-5. site-header__menu-btn(ハンバーガー) ---- */
+.site-header__menu-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: max(6px, 0.375rem);
+  width: var(--tap-size);
+  height: var(--tap-size);             /* UD:タップ領域44px */
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.site-header__menu-btn-bar {
+  display: block;
+  width: 100%;
+  height: var(--border-w);
+  border-radius: max(1px, 0.0625rem);
+  background-color: var(--color-text);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* ============================================================
+   6. ナビ(暗幕 → パネル → リストの順に内側へ)
+   ============================================================ */
+/* 6-0 メニュー中は背後のスクロールを止める(JSがbodyにis-nav-openを付ける) */
+body.is-nav-open {
+  overflow: hidden;
+}
+
+/* ---- 6-1. site-nav__overlay(メニュー中の暗幕) ---- */
+.site-nav__overlay {
+  position: fixed;
+  inset: 0;                                       /* 上右下左をまとめて0=画面全体 */
+  background-color: rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s;
+  z-index: 150;                                   /* site-header(100)より上 → headerも暗くなる */
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+.site-nav__overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ---- 6-2. site-nav(フローティングパネル) ---- */
+.site-nav {
+  display: flex;
+  flex-direction: column;                              /* 縦のflex構成 */
+  position: fixed;
+  top: var(--nav-inset);                               /* 上端を固定(=上寄せ) */
+  left: var(--nav-inset);
+  right: var(--nav-inset);
+  width: auto;
+  max-height: calc(100dvh - var(--nav-inset) * 2);      /* 下端も画面内に収める */
+  overflow: hidden;
+  z-index: 200;                                         /* 暗幕(150)より手前 */
+  padding: 1.5rem;
+  border-radius: 2.875rem;
+  transform: translateY(-10px);                         /* 上寄せで配置する演出 */
+  opacity: 0;                                                                      /* ① 演出担当:「見た目の透明度」 */
+  visibility: hidden;                                                              /* ② 本体担当:「実質的に存在しない状態」 */
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;          /* ③ 演出担当:不透明度（opacity）」「変形（transform）」「表示状態（visibility）」の3つのアニメーションを、それぞれ0.25秒かけて滑らかに変化 */
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.25;
+  background-color: var(--color-bg-glass);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.site-nav.is-open {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ---- 6-2b. 閉じるボタン(パネル右上)と検索窓 ---- */
+.site-nav__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex: none;
+}
+.site-nav__search {
+  flex: 1;                 /* 余った幅を全部使う */
+  min-width: 0;            /* flexの子が中身より小さくなれない初期設定を解除、狭い画面で入力欄がはみ出さないように */
+}
+.site-nav__search-input {
+  display: block;
+  width: 100%;
+  min-height: var(--tap-size);
+  padding: 0 16px;
+  font: inherit;            /* input が親の文字設定を引き継がないための指定 */
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  border: var(--border-w) solid var(--color-text);
+  border-radius: var(--radius-pill);
+  -webkit-appearance: none;
+  appearance: none;
+}
+.site-nav__search-input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 1;
+}
+.site-nav__close {
+  display: grid;
+  place-items: center;         /* 中身を上下左右の中央に */
+  width: var(--tap-size);
+  height: var(--tap-size);
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  flex: none;                  /* 狭くても潰れない */
+}
+.site-nav__close-bar {
+  grid-area: 1 / 1;            /* 2本とも同じマスに置く=重なる */
+  width: max(22px, 1.375rem);
+  height: var(--border-w);
+  border-radius: max(1px, 0.0625rem);
+  background-color: var(--color-text);
+}
+.site-nav__close-bar:nth-child(1) { transform: rotate(45deg); }
+.site-nav__close-bar:nth-child(2) { transform: rotate(-45deg); }
+
+.site-nav__close:hover,
+.site-nav__close:focus-visible {
+  background-color: var(--color-bg-hover);
+}
+
+/* ---- 6-3. 項目の共通見た目(押せる部分が自分で枠を持つ) ---- */
+.site-nav__filter-btn,
+.site-nav__list a {
+  background-color: var(--color-bg);
+  border: var(--border-w) solid var(--color-text);
+  border-radius: var(--radius-pill);
+  transition: background-color 0.2s ease;
+}
+/* hoverとキーボードフォーカスは必ずセット(UD) */
+.site-nav__filter-btn:hover,
+.site-nav__filter-btn:focus-visible,
+.site-nav__list a:hover,
+.site-nav__list a:focus-visible {
+  background-color: var(--color-bg-hover);
+}
+
+/* ---- 6-4. site-nav__filter(県・市・町・村の絞り込みボタン) ---- */
+.site-nav__filter {
+  display: flex;
+  flex-wrap: wrap;            /* 入りきらなければ次の段へ */
+  gap: 6px;
+  flex: none;
+}
+/* 「すべて」:余った幅を2の割合で受け取る */
+.site-nav__filter > .site-nav__filter-btn {
+  flex: 2 1 auto;
+}
+/* 県・市・町・村のまとまり:余った幅を2対1の割合で受け取る */
+.site-nav__filter-types {
+  display: flex;
+  flex-wrap: wrap;            /* 極端に狭いときの最後の保険 */
+  gap: 6px;
+  flex: 1 1 auto;             /* 「すべて」(1)に対して、4つのまとまりは4の比率 */
+}
+.site-nav__filter-btn {
+  flex: 1 1 auto;             /* 4つのボタンは、文字の幅を基準に、余った幅を均等に分け合う */
+  min-height: var(--tap-size);
+  min-width: var(--tap-size);
+  padding: 0 8px;
+  font: inherit;
+  color: inherit;
+  text-align: center;
+  white-space: nowrap;        /* ボタンの中では折り返さない */
+  cursor: pointer;
+}
+/* 選択中:hoverより後ろに書くこと */
+.site-nav__filter-btn[aria-pressed="true"] {
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+/* ---- 6-5. site-nav__status(件数) ---- */
+.site-nav__status {
+  flex: none;
+  padding: 12px 6px 6px;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--color-text);
+}
+
+/* ---- 6-6. site-nav__list(議会のリスト:ここだけスクロール) ---- */
+.site-nav__list {
+  list-style: none;
+  padding: 6px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(calc(7em +  1.875rem), 100%), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(calc(7ic +  1.875rem), 100%), 1fr));
+  align-content: start;              /* 件数が少ないとき、行が縦に伸びるのを防ぐ */
+  gap: 6px;
+  font-size: 1rem;
+  flex: 1 1 auto;                    /* 残りの高さを全部もらい、必要なら縮む */
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.site-nav__list li[hidden] { display: none; }
+.site-nav__list a {
+  display: block;
+  min-height: 2.75rem;
+  padding: max(9px, 0.5625em) max(12px, 0.75em);
+  overflow-wrap: anywhere;
+}
+.site-nav__list a[aria-current="page"] {
+  border-color: var(--color-bland);
+  color: var(--color-bland);
+}
+.site-nav__list a[aria-current="page"]:hover,
+.site-nav__list a[aria-current="page"]:focus-visible {
+  color: var(--color-text);
+}
+.site-nav__empty {
+  padding: 0 6px 6px;
+  font-weight: 700;
+}
+
+/* ============================================================
+   7. メイン
+   ============================================================ */
+main { padding: 24px 0; }
+.page-title {
+  display: flex;
+  align-items: center;
+  font-size: 1.75rem;
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+}
+.page-title::before {
+  content: "";
+  flex: none;
+  width: 0.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-bland);
+  margin-right: 0.5rem;
+}
+.content-section__title {
+  font-size: 1.5rem;
+}
+
+/* ---- 7-2b. 色の割り当て(目印と色を結びつける) ---- */
+/* pgroup = parliamentary group = 会派(政党とは限らないので party とは呼ばない) */
+[data-pgroup="ldp"]         { --pgroup-color: var(--color-ldp) }
+[data-pgroup="ishin"]       { --pgroup-color: var(--color-ishin) }
+[data-pgroup="dpp"]         { --pgroup-color: var(--color-dpp) }
+[data-pgroup="komei"]       { --pgroup-color: var(--color-komei) }
+[data-pgroup="craj"]        { --pgroup-color: var(--color-craj) }
+[data-pgroup="cdp"]         { --pgroup-color: var(--color-cdp) }
+[data-pgroup="sansei"]      { --pgroup-color: var(--color-sansei) }
+[data-pgroup="mirai"]       { --pgroup-color: var(--color-mirai) }
+[data-pgroup="jcp"]         { --pgroup-color: var(--color-jcp) }
+[data-pgroup="inochi"]      { --pgroup-color: var(--color-inochi) }
+[data-pgroup="sdp"]         { --pgroup-color: var(--color-sdp) }
+[data-pgroup="cpj"]         { --pgroup-color: var(--color-cpj) }
+[data-pgroup="local-1"]      { --pgroup-color: var(--color-pgroup1) }    /* 諸派1 */
+[data-pgroup="local-2"]        { --pgroup-color: var(--color-pgroup2) }    /* 諸派2 */
+[data-pgroup="local-3"]        { --pgroup-color: var(--color-pgroup3) }    /* 諸派3 */
+[data-pgroup="independent"] { --pgroup-color: var(--color-independent) }
+[data-pgroup="vacant"]      { --pgroup-color: var(--color-vacant) }
+/* ---- 日程の種別:色と段(レーン)の番号 ---- */
+[data-kind="regular"]        { --kind-color: var(--color-kind-regular);   --lane: 0; }
+[data-kind="extraordinary"]  { --kind-color: var(--color-kind-extra); --lane: 1; }
+
+/* ---- 7-2.5 クイックリンク ---- */
+.quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  padding: max(24px, 1.5rem) 0;
+  gap: 8px;
+}
+.quick-links__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.quick-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-size);
+  padding: 0.5rem 1rem;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  border: var(--border-w) solid var(--color-text);
+  border-radius: var(--radius-s);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.quick-link:hover,
+.quick-link:focus-visible {
+  color: var(--color-bg);
+  background-color: var(--color-text);
+}
+/* ページ内リンク */
+.quick-link--anchor {
+  color: var(--color-link-anchor);
+  background-color: var(--color-bg);
+  border: var(--border-w) solid var(--color-link-anchor);
+}
+.quick-link--anchor:hover,
+.quick-link--anchor:focus-visible {
+  color: var(--color-bg);
+  background-color: var(--color-link-anchor);
+}
+.quick-link--anchor::after {
+  content: "↓" / "";
+}
+/* 内部リンク */
+.quick-link--internal {
+  color: var(--color-link-internal);
+  background-color: var(--color-bg);
+  border: var(--border-w) solid var(--color-link-internal);
+}
+.quick-link--internal:hover,
+.quick-link--internal:focus-visible {
+  color: var(--color-bg);
+  background-color: var(--color-link-internal);
+}
+.quick-link--internal::after {
+  content: "→" / "";
+}
+/* 外部リンク */
+.quick-link--external {
+  color: var(--color-link-external);
+  background-color: var(--color-bg);
+  border: var(--border-w) solid var(--color-link-external);
+}
+.quick-link--external:hover,
+.quick-link--external:focus-visible {
+  color: var(--color-bg);
+  background-color: var(--color-link-external);
+  text-decoration: underline;
+  text-decoration-thickness: 0.125rem;
+}
+.quick-link--external::after {
+  content: "↗" / "";
+}
+
+#section-parliament,
+#section-schedule {
+  scroll-margin-top: calc(max(60px, 3.75rem) + 2 * min(0.5rem, 2.5dvw) + max(1.5px, 0.09375rem));
+}
+
+/* ---- 7-3. 議会構成レイアウト ---- */
+.parliament {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 32px;
+  align-items: center;
+  margin-top: 16px;
+}
+.parliament__chart {
+  flex: 1 1 320px;
+  max-width: 560px;
+  margin-inline: auto;
+}
+.parliament__chart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+.parliament__arc {
+  fill: var(--pgroup-color);
+  stroke: var(--color-bg);
+  stroke-width: 0.5px;
+  cursor: pointer;
+}
+
+/* 半円の中央の文字 */
+.parliament__total {
+  font-size: 1.5rem;
+  font-weight: 900;
+  fill: var(--color-text);   /* SVGの文字色は color ではなく fill */
+  text-anchor: middle;
+}
+.parliament__total-label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  fill: var(--color-text);
+  text-anchor: middle;
+}
+
+.parliament__list {
+  flex: 1 1 245px;
+  list-style: none;
+  display: grid;
+  gap: 4px 12px;
+}
+.parliament__list li {
+  padding: 0;
+}
+.parliament__name {
+  display: grid;
+  flex: 1;
+  font-weight: 700;
+  font-size: 1.25rem;
+  position: relative;
+  padding-left: 1rem;
+}
+.parliament__name::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateX(0%) translateY(-50%);
+  flex: none;
+  width: 0.5rem;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background-color: var(--pgroup-color);
+  transition: transform 0.2s ease, width 0.2s ease, height 0.2s ease;
+}
+/* 選択したときに強調する */
+.parliament__btn[aria-pressed="true"] .parliament__name::before {
+  width: 1rem;
+  transform: translateX(-25%) translateY(-50%);
+}
+
+.parliament__num {
+  font-size: 1.75rem;
+  font-weight: 900;
+  margin: 0 max(2px,0.125rem) 0 0;
+}
+.parliament__count {
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* ---- 7-4. 選択状態 ---- */
+/* 一覧のボタン:見た目をリセットして li いっぱいに広げる */
+.parliament__btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0.25rem 0.75rem;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  background-color: transparent;
+  border: none;
+  border-radius: var(--radius-s);
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+/* 選択中の会派の行:会派カラーを薄く敷く */
+.parliament__btn[aria-pressed="true"] {
+  background-color: color-mix(in srgb, var(--pgroup-color) 18%, var(--color-bg));
+}
+
+/* 選択中の縁取り(太い線。扇形の上に描かれる) */
+.parliament__arc-outline {
+  fill: none;
+  stroke: color-mix(in srgb, var(--pgroup-color, var(--color-text)) 60%, black);
+  stroke-width: 1.5px;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+/* 何か選択中のとき、選ばれていない会派を薄くする */
+.parliament[data-has-selection] .parliament__arc:not([data-selected]):not([data-hover]),
+.parliament[data-has-selection] .parliament__list li:not([data-selected]):not([data-hover]) {
+  opacity: 0.6;
+}
+.parliament__arc,
+.parliament__list li {
+  transition: opacity 0.2s ease, fill 0.2s ease;
+}
+
+/* 図に枠を出さない設定 */
+.parliament__chart svg,
+.parliament__chart svg * {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.schedule__bar { -webkit-tap-highlight-color: transparent; }
+.schedule__bar:focus:not(:focus-visible) { outline: none; }
+
+/* ---- 7-5. 議会日程 ---- */
+.schedule__year {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-top: 8px;
+}
+.schedule {
+  display: grid;
+  gap: 24px;
+  margin-top: 8px;
+}
+
+/* 凡例 */
+.schedule__filter {
+  display: flex;
+  flex-wrap: wrap; 
+  white-space: nowrap;
+  gap: 0 0.5em;
+}
+.schedule__filter-btn {
+  display: flex;
+  align-items: center;
+  color: var(--kind-color);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  background-color: transparent;
+  border: none;
+  border-radius: var(--radius-s);
+  padding: 0.125rem 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.schedule__filter-btn[aria-pressed="true"] {
+  background-color: color-mix(in srgb, var(--kind-color) 18%, var(--color-bg));
+}
+.schedule__filter-btn::before {
+  content: "";
+  flex: none;
+  width: 0.875em;
+  height: 0.875em;
+  border: 0.125rem solid currentColor;
+  border-radius: 0.25em;
+  background-color: currentColor;
+  margin-top: 0.078125em;
+  margin-right: 0.25em;
+  transition: border-radius 0.2s ease;
+}
+.schedule__filter-btn--tentative::before {
+  border: 0.125rem dashed currentColor;
+  background-color: transparent;
+}
+.schedule__filter-btn[aria-pressed="true"]::before {
+  border-radius: 50%;
+}
+
+/* 図の箱:背景なし(透過)。中の要素は --start / --span(0〜100)で位置を決める */
+.schedule__chart {
+  --head: 2.5rem;                  /* 横長:月の文字の高さ */
+  --axis: 2.5rem;                  /* 縦長:月の文字の幅 */
+  --line: max(1px, 0.0625rem);
+  position: relative;
+  height: 14rem;                 /* 横長:月2rem + 定例会 + 臨時会 */
+}
+.schedule__month,
+.schedule__bar { position: absolute; }
+
+/* ---- 横長(基本):時間が左から右。種別ごとに上下の段へ ---- */
+.schedule__month {
+  top: 0;
+  height: 100%;
+  left: calc(var(--start) * 1%);
+  width: calc(var(--span) * 1%);
+  border-left: var(--line) solid var(--line-border);
+  padding: 0.25rem 0 0 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+  color: var(--color-text-muted);
+  pointer-events: none;
+  text-align: center;
+}
+.schedule__month:nth-child(12) { border-right: var(--line) solid var(--line-border); }
+
+.schedule__bar {
+  left: calc(var(--start) * 1%);
+  width: calc(var(--span) * 1%);
+  margin-top: 0.5rem;
+}
+.schedule__bar[data-kind="regular"]  { top: var(--head);                   height: 5rem; writing-mode: vertical-rl; }
+.schedule__bar[data-kind="extraordinary"] { top: calc(var(--head) + var(--lane) * 5.5rem); height: 5rem; writing-mode: vertical-rl; }
+
+/* ---- 今日の線 ---- */
+.schedule__today {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  left: calc(var(--start) * 1%);
+  border-left: max(2px, 0.125rem) dashed rgb(64, 64, 64);
+  pointer-events: none;
+  z-index: 1;                      /* 帯より手前 */
+}
+.schedule__today > span {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  width: 1.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-bg);
+  background-color: rgb(64, 64, 64);
+  border-radius: var(--radius-s);
+  writing-mode: vertical-rl;
+}
+
+/* ---- 縦長:時間が上から下。種別ごとに左右の列へ ---- */
+@media (max-width: 640px) {
+  .schedule__chart { height: 40rem; }
+  .schedule__month {
+    left: 0;
+    width: 100%;
+    top: calc(var(--start) * 1%);
+    height: calc(var(--span) * 1%);
+    border-left: none;
+    border-top: var(--line) solid var(--line-border);
+    padding: 0.25rem 0 0 0.25rem;
+    line-height: 1;
+    text-align: left;
+  }
+  .schedule__month:nth-child(12) {
+    border-right: none;
+    border-bottom: var(--line) solid var(--line-border);
+  }
+  /* [data-kind] を付けて、横長の種別ごとの指定と同じ強さにする(後に書いた方が勝つ) */
+  .schedule__bar[data-kind] {
+    top: calc(var(--start) * 1%);
+    height: calc(var(--span) * 1%);
+    left: calc(var(--axis) + (100% - var(--axis)) / 2 * var(--lane));
+    width: calc((100% - var(--axis)) / 2 - 0.5em);
+    min-width: 0;
+    min-height: 1.5rem;
+    writing-mode: horizontal-tb;
+  }
+  /* 今日の線 */
+  .schedule__today {
+    left: 0;
+    width: 100%;
+    top: calc(var(--start) * 1%);
+    height: auto;
+    border-left: none;
+    border-top: max(2px, 0.125rem) dashed rgb(64, 64, 64);
+  }
+  .schedule__today > span {
+    transform: translateY(-50%);
+    left: 0;
+    right: auto;
+    width: 2rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    writing-mode: horizontal-tb;
+  }
+}
+
+/* ---- 帯の見た目 ---- */
+.schedule__bar {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1;                                 /* 低い帯でも文字が溢れない */
+  white-space: nowrap;
+  color: var(--kind-color);
+  background-color: var(--color-bg);
+  border: var(--border-w) solid var(--kind-color);
+  border-radius: var(--radius-s);
+  overflow: hidden;
+  cursor: pointer;
+  transition: opacity 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+.schedule__bar[data-tentative] {                 /* 未定:点線+白抜き */
+  color: var(--kind-color);
+  background-color: var(--color-bg);
+  border-style: dashed;
+}
+
+/* ---- 一覧(議会構成の parliament__btn と同じ作り) ---- */
+.schedule__list {
+  list-style: none;
+  display: grid;
+  gap: 4px;
+}
+.schedule__item-btn {
+  display: grid;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-s);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.schedule__item-text {
+  display: grid;
+  text-align: left;
+  line-height: 1.5rem;
+  position: relative;
+  padding-left: 1rem;
+}
+.schedule__item-text::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.5rem;
+  height: calc(100%);
+  border-radius: var(--radius-pill);
+  background-color: var(--kind-color);
+  transition: width 0.2s ease, transform 0.2s ease;
+}
+/* 選択したときにバーを強調する */
+.schedule__item-btn[aria-pressed="true"] .schedule__item-text::before {
+  width: 1rem;
+  transform: translateX(-25%) translateY(-50%);
+}
+
+.schedule__item-name {
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+.schedule__item-date {
+  color: var(--color-text);
+  font-weight: 500;
+}
+.schedule__item-btn[aria-pressed="true"] { background-color: color-mix(in srgb, var(--kind-color) 18%, var(--color-bg)); }
+
+/* ホバーした時のルール */
+.parliament__arc[data-hover]:not([data-selected]) {
+  fill: color-mix(in srgb, var(--pgroup-color) 75%, var(--color-bg));
+}
+.parliament__list li[data-hover]:not([data-selected]) .parliament__btn {
+  background-color: color-mix(in srgb, var(--pgroup-color) 9%, var(--color-bg));
+}
+@media (hover: hover) {
+  .schedule__filter-btn:hover:not([aria-pressed="true"]),
+  .schedule__filter-btn:focus-visible:not([aria-pressed="true"]) {
+    background-color: color-mix(in srgb, var(--kind-color) 9%, var(--color-bg));
+  }
+}
+.schedule__bar[data-hover] {
+  background-color: color-mix(in srgb, var(--kind-color) 18%, var(--color-bg));
+}
+.schedule__list li[data-hover] .schedule__item-btn:not([aria-pressed="true"]) {
+  background-color: color-mix(in srgb, var(--kind-color) 9%, var(--color-bg));
+}
+.schedule__bar[data-selected] {
+  background-color: var(--kind-color);
+  border-color: var(--kind-color);
+  color: var(--color-bg);
+}
+
+/* 何か選択中:選ばれていないものを薄くする(議会図と同じ0.6) */
+.schedule[data-has-selection] .schedule__bar:not([data-selected]):not([data-hover]) {
+  --faded: color-mix(in srgb, var(--kind-color) 60%, var(--color-bg));
+  color: var(--faded);
+  border-color: var(--faded);
+  background-color: var(--color-bg);
+}
+.schedule[data-has-selection] .schedule__list li:not([data-selected]):not([data-hover]) {
+  opacity: 0.6;
+}
+.schedule__list li { transition: opacity 0.2s ease; }
+
+/* ============================================================
+   8. フッター
+   ============================================================ */
+/* ---- 8-1. フッター(全部の器) ---- */
+.site-footer {
+  background-color: var(--color-bg);
+  color: var(--color-text-muted);
+  border-top: max(1px, 0.0625rem) solid var(--line-border);
+  padding: 24px 0;
+  text-align: left;
+  font-size: 0.9rem;
+}
+/* ---- 8-2. フッターの中身の幅を決める ---- */
+.container--narrow {
+  max-width: max(1080px, 97.5dvw);
+  
+}
+
+/* ============================================================
+   9. フォーカスと動き
+   ============================================================ */
+:focus-visible {
+  outline: var(--border-w) solid var(--color-bland);
+  outline-offset: 2px;
+}
+
+/* 動きを減らす設定の利用者には、演出なしで表示する */
+@media (prefers-reduced-motion: reduce) {
+  /* 開閉・ホバーなど、動きのあるものをすべて止める */
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* 位置のずらしも不要 */
+  .site-nav,
+  .site-nav.is-open {
+    transform: none;
+  }
+}
+
+/* ============================================================
+   10. スマホ対応
+   ============================================================ */
+@media (max-width: 640px) {
+  .page-title { font-size: 1.5rem; }
+  .page-title::before { height: 3rem; }
+  .content-section__title { font-size: 1.35rem; }
+}
