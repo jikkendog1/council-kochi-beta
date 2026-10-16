@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+  <head>
+    <meta name="robots" content="noindex">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高知県議会基本データ | 高知議会情報(仮)</title>
+    <meta name="description" content="高知県議会の会派構成と定例会の日程を、図や表でわかりやすくまとめた非公式の情報サイトです。最新情報は高知県の公式サイトをご確認ください。">
+    <link rel="stylesheet" href="/council-kochi-beta/css/style.css">
+    <script src="/council-kochi-beta/js/main.js" defer></script>
+  </head>
+
+  <body>
+    <div class="site-header">
+      <header class="site-header__glass">
+        <div class="container site-header__bar">
+          <p class="site-header__logo"><a href="/council-kochi-beta/">高知議会情報(仮)</a></p>
+          <button class="site-header__menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="メニュー">
+            <span class="site-header__menu-btn-bar"></span>
+            <span class="site-header__menu-btn-bar"></span>
+            <span class="site-header__menu-btn-bar"></span>
+          </button>
+        </div>
+      </header>
+    </div>
+
+    <nav class="site-nav" id="site-nav" aria-label="サイトメニュー" inert>
+      <div class="site-nav__head">
+        <div class="site-nav__search" role="search">
+          <label class="visually-hidden" for="site-nav__search-input">議会名で検索</label>
+          <input class="site-nav__search-input" id="site-nav-input" type="search" placeholder="議会名で検索（ひらがなも可）" autocomplete="off" aria-controls="site-nav__list">
+        </div>
+        <button class="site-nav__close" type="button" aria-label="メニューを閉じる">
+          <span class="site-nav__close-bar"></span>
+          <span class="site-nav__close-bar"></span>
+        </button>
+      </div>
+      <div class="site-nav__filter" role="group" aria-label="種別で絞り込み">
+        <button class="site-nav__filter-btn" type="button" data-type-filter="all" aria-pressed="true" aria-controls="site-nav__list">すべて</button>
+        <div class="site-nav__filter-types">
+          <button class="site-nav__filter-btn" type="button" data-type-filter="pref" aria-pressed="false" aria-controls="site-nav__list">県</button>
+          <button class="site-nav__filter-btn" type="button" data-type-filter="city" aria-pressed="false" aria-controls="site-nav__list">市</button>
+          <button class="site-nav__filter-btn" type="button" data-type-filter="town" aria-pressed="false" aria-controls="site-nav__list">町</button>
+          <button class="site-nav__filter-btn" type="button" data-type-filter="village" aria-pressed="false" aria-controls="site-nav__list">村</button>
+        </div>
+      </div>
+
+      <p class="site-nav__status" role="status"></p>
+
+      <ul class="site-nav__list" id="nav-list">
+        <li data-type="pref" data-reading="こうちけん"><a href="/council-kochi-beta/pref/kochi/">高知県議会</a></li>
+        <li data-type="city" data-reading="こうちし"><a href="/council-kochi-beta/city/kochi/">高知市議会</a></li>
+        <li data-type="city" data-reading="むろとし"><a href="/council-kochi-beta/city/muroto/">室戸市議会</a></li>
+        <li data-type="city" data-reading="あきし"><a href="/council-kochi-beta/city/aki/">安芸市議会</a></li>
+        <li data-type="city" data-reading="なんこくし"><a href="/council-kochi-beta/city/nankoku/">南国市議会</a></li>
+        <li data-type="city" data-reading="とさし"><a href="/council-kochi-beta/city/tosa/">土佐市議会</a></li>
+        <li data-type="city" data-reading="すさきし"><a href="/council-kochi-beta/city/susaki/">須崎市議会</a></li>
+        <li data-type="city" data-reading="すくもし"><a href="/council-kochi-beta/city/sukumo/">宿毛市議会</a></li>
+        <li data-type="city" data-reading="とさしみずし"><a href="/council-kochi-beta/city/tosashimizu/">土佐清水市議会</a></li>
+        <li data-type="city" data-reading="しまんとし"><a href="/council-kochi-beta/city/shimanto/">四万十市議会</a></li>
+        <li data-type="city" data-reading="こうなんし"><a href="/council-kochi-beta/city/konan/">香南市議会</a></li>
+        <li data-type="city" data-reading="かみし"><a href="/council-kochi-beta/city/kami/">香美市議会</a></li>
+        <li data-type="town" data-reading="とうようちょう"><a href="/council-kochi-beta/town/toyo/">東洋町議会</a></li>
+        <li data-type="town" data-reading="なはりちょう"><a href="/council-kochi-beta/town/nahari/">奈半利町議会</a></li>
+        <li data-type="town" data-reading="たのちょう"><a href="/council-kochi-beta/town/tano/">田野町議会</a></li>
+        <li data-type="town" data-reading="やすだちょう"><a href="/council-kochi-beta/town/yasuda/">安田町議会</a></li>
+        <li data-type="village" data-reading="きたがわむら きたがわそん"><a href="/council-kochi-beta/village/kitagawa/">北川村議会</a></li>
+        <li data-type="village" data-reading="うまじむら うまじそん"><a href="/council-kochi-beta/village/umaji/">馬路村議会</a></li>
+        <li data-type="village" data-reading="げいせいむら げいせいそん"><a href="/council-kochi-beta/village/geisei/">芸西村議会</a></li>
+        <li data-type="town" data-reading="もとやまちょう"><a href="/council-kochi-beta/town/motoyama/">本山町議会</a></li>
+        <li data-type="town" data-reading="おおとよちょう"><a href="/council-kochi-beta/town/otoyo/">大豊町議会</a></li>
+        <li data-type="town" data-reading="とさちょう"><a href="/council-kochi-beta/town/tosa/">土佐町議会</a></li>
+        <li data-type="village" data-reading="おおかわむら おおかわそん"><a href="/council-kochi-beta/village/okawa/">大川村議会</a></li>
+        <li data-type="town" data-reading="いのちょう"><a href="/council-kochi-beta/town/ino/">いの町議会</a></li>
+        <li data-type="town" data-reading="によどがわちょう"><a href="/council-kochi-beta/town/niyodogawa/">仁淀川町議会</a></li>
+        <li data-type="town" data-reading="なかとさちょう"><a href="/council-kochi-beta/town/nakatosa/">中土佐町議会</a></li>
+        <li data-type="town" data-reading="さかわちょう"><a href="/council-kochi-beta/town/sakawa/">佐川町議会</a></li>
+        <li data-type="town" data-reading="おちちょう"><a href="/council-kochi-beta/town/ochi/">越知町議会</a></li>
+        <li data-type="town" data-reading="ゆすはらちょう"><a href="/council-kochi-beta/town/yusuhara/">梼原町議会</a></li>
+        <li data-type="village" data-reading="ひだかむら ひだかそん"><a href="/council-kochi-beta/village/hidaka/">日高村議会</a></li>
+        <li data-type="town" data-reading="つのちょう"><a href="/council-kochi-beta/town/tsuno/">津野町議会</a></li>
+        <li data-type="town" data-reading="しまんとちょう"><a href="/council-kochi-beta/town/shimanto/">四万十町議会</a></li>
+        <li data-type="town" data-reading="おおつきちょう"><a href="/council-kochi-beta/town/otsuki/">大月町議会</a></li>
+        <li data-type="village" data-reading="みはらむら みはらそん"><a href="/council-kochi-beta/village/mihara/">三原村議会</a></li>
+        <li data-type="town" data-reading="くろしおちょう"><a href="/council-kochi-beta/town/kuroshio/">黒潮町議会</a></li>
+      </ul>
+      <p class="site-nav__empty" hidden>該当する議会がありません。</p>
+    </nav>
+
+    <div class="site-nav__overlay"></div>
+
+    <main>
+      <div class="container">
+        <h1 class="page-title">高知県議会基本データ</h1>
+        <p class="text-note">最終更新日：2026年10月13日</p>
+
+        <div class="quick-links">
+          <a class="quick-link quick-link--external" href="https://gikai.pref.kochi.lg.jp/" target="_blank" rel="noopener">公式サイトを見る</a>
+          <div class="quick-links__wrapper">
+            <a class="quick-link quick-link--anchor" href="#section-parliament">議会構成を見る</a>
+            <a class="quick-link quick-link--anchor" href="#section-schedule">議会日程を見る</a>
+          </div>
+        </div>
+
+        <section class="content-section" id="section-parliament">
+          <h2 class="content-section__title">議会構成</h2>
+          <p><span class="text-note">2026年10月13日時点の情報です。最新の情報は<a href="https://gikai.pref.kochi.lg.jp/member/categories/" target="_blank" rel="noopener">公式サイト</a>をご覧ください。</span></p>
+
+          <div class="parliament">
+            <div class="parliament__chart">
+              <div id="js-parliament-svg"></div>
+            </div>
+
+            <ul class="parliament__list" id="parliament__list">
+              <li data-pgroup="ldp">
+                <button class="parliament__btn" type="button" aria-pressed="false">
+                  <span class="parliament__name">自由民主党</span>
+                  <span class="parliament__count"><span class="parliament__num">20</span>議席</span>
+                </button>
+              </li>
+              <li data-pgroup="jcp">
+                <button class="parliament__btn" type="button" aria-pressed="false">
+                  <span class="parliament__name">日本共産党</span>
+                  <span class="parliament__count"><span class="parliament__num">6</span>議席</span>
+                </button>
+              </li>
+              <li data-pgroup="local-1">
+                <button class="parliament__btn" type="button" aria-pressed="false">
+                  <span class="parliament__name">県民の会</span>
+                  <span class="parliament__count"><span class="parliament__num">4</span>議席</span>
+                </button>
+              </li>
+              <li data-pgroup="komei">
+                <button class="parliament__btn" type="button" aria-pressed="false">
+                  <span class="parliament__name">公明党</span>
+                  <span class="parliament__count"><span class="parliament__num">3</span>議席</span>
+                </button>
+              </li>
+              <li data-pgroup="local-2">
+                <button class="parliament__btn" type="button" aria-pressed="false">
+                  <span class="parliament__name">一燈立志の会</span>
+                  <span class="parliament__count"><span class="parliament__num">2</span>議席</span>
+                </button>
+              </li>
+              <li data-pgroup="local-3">
+                <button class="parliament__btn" type="button" aria-pressed="false">
+                  <span class="parliament__name">自由の風</span>
+                  <span class="parliament__count"><span class="parliament__num">1</span>議席</span>
+                </button>
+              </li>
+              <li data-pgroup="vacant">
+                <button class="parliament__btn" type="button" aria-pressed="false">
+                  <span class="parliament__name">欠員</span>
+                  <span class="parliament__count"><span class="parliament__num">1</span>議席</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="quick-links">
+
+          </div>
+        </section>
+
+        <section class="content-section" id="section-schedule">
+          <h2 class="content-section__title">議会日程</h2>
+          <p><span class="text-note">2026年10月13日時点の情報です。最新の情報は<a href="https://gikai.pref.kochi.lg.jp/schedulesession/" target="_blank" rel="noopener">公式サイト</a>をご覧ください。</span></p>
+          <p class="schedule__year">2026年</p>
+          <p class="schedule__filter">
+            <button type="button" class="schedule__filter-btn" data-kind="regular" data-filter="confirmed" aria-pressed="false">定例会</button>
+            <button type="button" class="schedule__filter-btn schedule__filter-btn--tentative" data-kind="regular" data-filter="tentative" aria-pressed="false">定例会(去年の日程)</button>
+            <button type="button" class="schedule__filter-btn" data-kind="extraordinary" data-filter="confirmed" aria-pressed="false">臨時会(不定期)</button>
+          </p>
+
+          <div class="schedule" id="schedule" data-year="2026">
+            <div class="schedule__chart" id="schedule__chart"></div>
+
+            <ul class="schedule__list" id="schedule__list">
+              <li data-id="2026-02-regular" data-kind="regular" data-label="定例会" data-start="2026-02-24" data-end="2026-03-24">
+                <button class="schedule__item-btn" type="button" aria-pressed="false">
+                  <span class="schedule__item-text">
+                    <span class="schedule__item-name">2月定例会</span>
+                    <span class="schedule__item-date">2月24日から3月24日</span>
+                  </span>
+                </button>
+              </li>
+              <li data-id="2026-06-regular" data-kind="regular" data-label="定例会" data-start="2026-06-25" data-end="2026-07-10">
+                <button class="schedule__item-btn" type="button" aria-pressed="false">
+                  <span class="schedule__item-text">
+                    <span class="schedule__item-name">6月定例会</span>
+                    <span class="schedule__item-date">6月25日から7月10日</span>
+                  </span>
+                </button>
+              </li>
+              <li data-id="2026-09-regular" data-kind="regular" data-label="定例会" data-start="2026-09-25" data-end="2026-10-20">
+                <button class="schedule__item-btn" type="button" aria-pressed="false">
+                  <span class="schedule__item-text">
+                    <span class="schedule__item-name">9月定例会</span>
+                    <span class="schedule__item-date">9月25日から10月20日</span>
+                  </span>
+                </button>
+              </li>
+              <li data-id="2025-12-regular" data-kind="regular" data-label="定例会" data-start="2025-12-05" data-end="2025-12-19" data-tentative>
+                <button class="schedule__item-btn" type="button" aria-pressed="false">
+                  <span class="schedule__item-text">
+                    <span class="schedule__item-name">12月定例会</span>
+                    <span class="schedule__item-date">未定(昨年は12月5日から12月19日)</span>
+                  </span>
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="quick-links">
+
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container container--narrow">
+        <p>© 2026 高知議会情報(仮) | 当サイトは非公式です。できる限り正確な情報を掲載するよう努めておりますが、その正確性を保証するものではありません。最新の情報は各公式サイトをご確認ください。</p>
+      </div>
+    </footer>
+  </body>
+
+</html>
