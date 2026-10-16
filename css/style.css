@@ -656,7 +656,7 @@ main { padding: 24px 0; }
 .parliament__arc-outline {
   fill: none;
   stroke: color-mix(in srgb, var(--pgroup-color, var(--color-text)) 60%, black);
-  stroke-width: 1.5px;
+  stroke-width: 2px;
   stroke-linejoin: round;
   pointer-events: none;
 }
