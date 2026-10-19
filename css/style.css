@@ -58,10 +58,14 @@ a { color: inherit; }
   --color-cpj:    rgb(150, 150, 240); /* 日本保守党 */
   --color-independent: rgb(120, 120, 120);  /* 無所属 */
   --color-vacant:      rgb(190, 190, 190);  /* 空席 */
-  --color-pgroup1:     rgb(50, 150, 40);    /* 地方用1 */
-  --color-pgroup2:     rgb(155, 60, 105);   /* 地方用2 */
-  --color-pgroup3:     rgb(0, 150, 165);    /* 地方用3 */
-  --color-pgroup4:     rgb(140, 85, 45);    /* 地方用4 */
+  --color-pgroup1:     rgb(0, 114, 178);    /* 地方用1 */
+  --color-pgroup2:     rgb(230, 159, 0);    /* 地方用2 */
+  --color-pgroup3:     rgb(0, 158, 115);   /* 地方用3 */
+  --color-pgroup4:     rgb(86, 180, 233);     /* 地方用4 */
+  --color-pgroup5:     rgb(165, 110, 30);    /* 地方用5 */
+  --color-pgroup6:     rgb(204, 121, 167);  /* 地方用6 */
+  --color-pgroup7:     rgb(149, 107, 191);  /* 地方用7 */
+  --color-pgroup8:     rgb(90, 90, 90);     /* 地方用8 */
 
   --tap-size: max(44px, 2.75rem);
   --border-w: max(3px, 0.1875rem);
@@ -454,6 +458,10 @@ main { padding: 24px 0; }
 [data-pgroup="local-2"]        { --pgroup-color: var(--color-pgroup2) }    /* 諸派2 */
 [data-pgroup="local-3"]        { --pgroup-color: var(--color-pgroup3) }    /* 諸派3 */
 [data-pgroup="local-4"]        { --pgroup-color: var(--color-pgroup4) }    /* 諸派4 */
+[data-pgroup="local-5"]        { --pgroup-color: var(--color-pgroup5) }    /* 諸派4 */
+[data-pgroup="local-6"]        { --pgroup-color: var(--color-pgroup6) }    /* 諸派4 */
+[data-pgroup="local-7"]        { --pgroup-color: var(--color-pgroup7) }    /* 諸派4 */
+[data-pgroup="local-8"]        { --pgroup-color: var(--color-pgroup8) }    /* 諸派4 */
 [data-pgroup="independent"] { --pgroup-color: var(--color-independent) }
 [data-pgroup="vacant"]      { --pgroup-color: var(--color-vacant) }
 /* ---- 日程の種別:色と段(レーン)の番号 ---- */
@@ -824,7 +832,7 @@ main { padding: 24px 0; }
     left: calc(var(--axis) + (100% - var(--axis)) / 2 * var(--lane));
     width: calc((100% - var(--axis)) / 2 - 0.5em);
     min-width: 0;
-    min-height: 0;
+    min-height: 0;   /* 1.5remから変更 */
     writing-mode: horizontal-tb;
   }
   /* 今日の線 */
@@ -837,7 +845,8 @@ main { padding: 24px 0; }
     border-top: max(2px, 0.125rem) dashed rgb(64, 64, 64);
   }
   .schedule__today > span {
-    transform: translateY(-50%);
+    transform: translateY(calc(-50% - 1px));
+    top: 0;
     left: 0;
     right: auto;
     width: 2rem;
@@ -858,7 +867,7 @@ main { padding: 24px 0; }
   font: inherit;
   font-size: 0.9rem;
   font-weight: 700;
-  line-height: 1;
+  line-height: 1;                                 /* 低い帯でも文字が溢れない */
   white-space: nowrap;
   color: var(--kind-color);
   background-color: var(--color-bg);
@@ -941,7 +950,7 @@ main { padding: 24px 0; }
 }
 
 .schedule__bar[data-hover] {
-  background-color: color-mix(in srgb, var(--kind-color) 18%, var(--color-bg));
+  background-color: color-mix(in srgb, var(--kind-color) 9%, var(--color-bg));
 }
 .schedule__list li[data-hover] .schedule__item-btn:not([aria-pressed="true"]) {
   background-color: color-mix(in srgb, var(--kind-color) 9%, var(--color-bg));
