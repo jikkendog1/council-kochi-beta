@@ -58,13 +58,13 @@ a { color: inherit; }
   --color-cpj:    rgb(150, 150, 240); /* 日本保守党 */
   --color-independent: rgb(120, 120, 120);  /* 無所属 */
   --color-vacant:      rgb(190, 190, 190);  /* 空席 */
-  --color-pgroup1:     rgb(7, 143, 155);    /* 地方用1 */
-  --color-pgroup2:     rgb(107, 31, 31);    /* 地方用2 */
-  --color-pgroup3:     rgb(33, 89, 155);    /* 地方用3 */
-  --color-pgroup4:     rgb(166, 86, 130);     /* 地方用4 */
-  --color-pgroup5:     rgb(139, 90, 62);      /* 地方用5 */
-  --color-pgroup6:     rgb(3, 145, 93);       /* 地方用6 */
-  --color-pgroup7:     rgb(121, 110, 89);     /* 地方用7 */
+  --color-pgroup1:     rgb(7, 143, 155);     /* 地方用1 */
+  --color-pgroup2:     rgb(155, 0, 90);    /* 地方用2 */
+  --color-pgroup3:     rgb(33, 89, 155);     /* 地方用3 */
+  --color-pgroup4:     rgb(29, 155, 104);      /* 地方用4 */
+  --color-pgroup5:     rgb(139, 90, 62);     /* 地方用5 */
+  --color-pgroup6:     rgb(107, 31, 31);     /* 地方用6 */
+  --color-pgroup7:     rgb(90, 110, 10);    /* 地方用7 */
 
   --tap-size: max(44px, 2.75rem);
   --border-w: max(3px, 0.1875rem);
